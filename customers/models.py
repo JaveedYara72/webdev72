@@ -1,17 +1,14 @@
 from django.db import models
 
-class Customer(models.Model):
-  firstname = models.CharField(max_length=255)
-  lastname = models.CharField(max_length=255)
-  email = models.CharField(max_length=255)
-  phone_number = models.CharField(max_length=12)
-  address = models.CharField(max_length=255)
+class pizza(models.Model):
+    pizzaName = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
 
-class PizzaBase(models.Model):
-    name = models.CharField(max_length=100)
+class pizzaType(models.Model):
+    pizzaTypeName = models.CharField(max_length=255)
+class cheese(models.Model):
+    cheeseName = models.CharField(max_length=255)
 
-class Cheese(models.Model):
-    name = models.CharField(max_length=100)
+class toppings(models.Model):
+    toppingName = models.CharField(max_length=255)
 
-class Topping(models.Model):
-    name = models.CharField(max_length=100)

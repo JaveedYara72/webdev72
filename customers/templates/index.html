@@ -5,8 +5,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body { font-family: Arial, sans-serif; }
-        .container { width: 600px; margin: 0 auto; text-align: center; }
+        /* .container { width: 600px; margin: 0 auto; text-align: center; } */
         select, input { margin: 10px 0; }
+        .container {
+            display: flex;
+            justify-content: space-between; /* To evenly distribute cards along the main axis */
+        }
+        .card {
+            width: 18rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Ensure vertical stacking of cards */
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -17,86 +29,65 @@
           </div>
       </nav>
     <div class="container">
-        <h1>Pizzeria</h1>
-        <form id="orderForm">
-            <select id="pizzaBase" required>
-                <option value="">Select Pizza Base</option>
-            </select>
-            <select id="cheeseType" required>
-                <option value="">Select Cheese Type</option>
-            </select>
-            <select id="toppings"required>
-                <option value="">Select the Toppings</option>
-            </select>
-            <button type="submit">Place Order</button>
-        </form>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                     Margherita 
+                </div>
+                <div class="card-body">
+                    <form id="orderForm">
+                        <select id="pizzaBase" required>
+                            <option value="">Select Pizza Base</option>
+                        </select>
+                        <select id="cheeseType" required>
+                            <option value="">Select Cheese Type</option>
+                        </select>
+                        <select id="toppings"required>
+                            <option value="">Select the Toppings</option>
+                        </select>
+                        <button type="submit">Add this Pizza to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Neapolitan
+                </div>
+                <div class="card-body">
+                    <form id="orderForm">
+                        <select id="pizzaBase" required>
+                            <option value="">Select Pizza Base</option>
+                        </select>
+                        <select id="cheeseType" required>
+                            <option value="">Select Cheese Type</option>
+                        </select>
+                        <select id="toppings"required>
+                            <option value="">Select the Toppings</option>
+                        </select>
+                        <button type="submit">Add this Pizza to Cart</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Deepdish
+                </div>
+                <div class="card-body">
+                    <form id="orderForm">
+                        <select id="pizzaBase" required>
+                            <option value="">Select Pizza Base</option>
+                        </select>
+                        <select id="cheeseType" required>
+                            <option value="">Select Cheese Type</option>
+                        </select>
+                        <select id="toppings"required>
+                            <option value="">Select the Toppings</option>
+                        </select>
+                        <button type="submit">Add this Pizza to Cart</button>
+                    </form>
+                </div>
+            </div>
     </div>
-
-<script>
-    const fetchData = async (url, elementId) => {
-        const response = await fetch(url);
-        const data = await response.json();
-        const select = document.getElementById(elementId);
-        data.forEach(item => {
-            let option = document.createElement('option');
-            option.value = item.id;
-            option.textContent = item.name;
-            select.append(option);
-        });
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchData('/api/pizza_bases/', 'pizzaBase');
-        fetchData('/api/cheese_types/', 'cheeseType');
-        fetchData('/api/toppings/', 'toppings');
-
-        document.getElementById('orderForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Collecting the form data
-            const pizzaBase = document.getElementById('pizzaBase').value;
-            const cheeseType = document.getElementById('cheeseType').value;
-            const selectedToppings = Array.from(document.getElementById('toppings').selectedOptions).map(option => option.value);
-            const numberOfPizzas = document.getElementById('number').value;
-
-            if (selectedToppings.length !== 5) {
-                alert('Please select exactly 5 toppings.');
-                return;
-            }
-
-            const orderData = {
-                pizzaBase,
-                cheeseType,
-                toppings: selectedToppings,
-                quantity: numberOfPizzas,
-            };
-
-            // Post the collected data as JSON to the server
-            try {
-                const response = await fetch('/api/submit_order/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData),
-                });
-
-                if (response.ok) {
-                    // Assuming the server returns a JSON object
-                    const result = await response.json();
-                    console.log(result);
-                    alert('Order placed successfully!');
-                } else {
-                    console.error('Failed to submit order.', response.statusText);
-                    alert('There was a problem with your order. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while submitting your order. Please try again.');
-            }
-        });
-    });
-</script>
-
+{%load static%}
+<script src="{%static 'js/main.js'%}"> </script>
 </body>
 </html>
