@@ -28,40 +28,75 @@ const fetchDataCheeseType = async (url, elementId) => {
   });
 };
 
-const fetchDataToppings = async (url, elementId) => {
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
-  const select = document.getElementById(elementId);
-  data.forEach((item) => {
-    let option = document.createElement("option");
-    option.value = item.toppingName;
-    option.textContent = item.toppingName;
-    select.append(option);
-  });
-};
-
 document.addEventListener("DOMContentLoaded", () => {
-  fetchDataPizzaBase("/customers/getpizzatypes/", "pizzaBase");
-  fetchDataCheeseType("/customers/getcheeses/", "cheeseType");
-  fetchDataToppings("/customers/gettoppings/", "toppings");
+  fetchDataPizzaBase("/customers/getpizzatypes/", "pizzaBase1");
+  fetchDataCheeseType("/customers/getcheeses/", "cheeseType1");
 
-  document.getElementById("orderForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  fetchDataPizzaBase("/customers/getpizzatypes/", "pizzaBase2");
+  fetchDataCheeseType("/customers/getcheeses/", "cheeseType2");
 
-    // Collecting the form data
-    const pizzaBase = document.getElementById("pizzaBase").value;
-    const cheeseType = document.getElementById("cheeseType").value;
-    const selectedToppings = Array.from(
-      document.getElementById("toppings").selectedOptions
-    ).map((option) => option.value);
-    const numberOfPizzas = document.getElementById("number").value;
+  fetchDataPizzaBase("/customers/getpizzatypes/", "pizzaBase3");
+  fetchDataCheeseType("/customers/getcheeses/", "cheeseType3");
 
-    if (selectedToppings.length < 5) {
-      alert("Please select 5 toppings minium");
-      return;
-    }
-  });
+  document
+    .getElementById("orderForm1")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Collecting the form data
+      const pizzaBase = document.getElementById("pizzaBase1").value;
+      const cheeseType = document.getElementById("cheeseType1").value;
+      const selectedOptions = document.querySelectorAll(
+        'input[name="option"]:checked'
+      );
+      if (selectedOptions.length < 5) {
+        alert("Please select at least 5 options.");
+        event.preventDefault();
+      }
+      // Add your code to submit the form data to the server
+    });
+
+  document
+    .getElementById("orderForm2")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Collecting the form data
+      const pizzaBase = document.getElementById("pizzaBase2").value;
+      const cheeseType = document.getElementById("cheeseType2").value;
+      const selectedToppings = Array.from(
+        document.getElementById("toppings2").selectedOptions
+      ).map((option) => option.value);
+      const numberOfPizzas = document.getElementById("number2").value;
+
+      if (selectedToppings.length < 5) {
+        alert("Please select 5 toppings minimum");
+        return;
+      }
+
+      // Add your code to submit the form data to the server
+    });
+
+  document
+    .getElementById("orderForm3")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Collecting the form data
+      const pizzaBase = document.getElementById("pizzaBase3").value;
+      const cheeseType = document.getElementById("cheeseType3").value;
+      const selectedToppings = Array.from(
+        document.getElementById("toppings3").selectedOptions
+      ).map((option) => option.value);
+      const numberOfPizzas = document.getElementById("number3").value;
+
+      if (selectedToppings.length < 5) {
+        alert("Please select 5 toppings minimum");
+        return;
+      }
+
+      // Add your code to submit the form data to the server
+    });
 });
 
 //     const orderData = {

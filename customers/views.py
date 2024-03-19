@@ -4,7 +4,8 @@ from django.template import loader
 from rest_framework import viewsets
 from .models import pizza,pizzaType, cheese, toppings
 from .serializers import PizzaSerializer,PizzaTypeSerializer, CheeseSerializer, ToppingsSerializer
-
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 class PizzaViewSet(viewsets.ReadOnlyModelViewSet):
@@ -35,3 +36,4 @@ def customers(request):
   # Variables in Django, youll pass it like this and parse it as pizzaname in
   template = loader.get_template('index.html')
   return HttpResponse(template.render(context,request))
+

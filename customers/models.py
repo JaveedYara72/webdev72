@@ -12,3 +12,13 @@ class cheese(models.Model):
 class toppings(models.Model):
     toppingName = models.CharField(max_length=255)
 
+class Order(models.Model):
+    pizzas = models.ManyToManyField(pizza, through="OrderDetail")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class OrderDetail(models.Model):
+    pizza = models.ForeignKey(pizza, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    pizzaType = models.ForeignKey(pizzaType, on_delete=models.SET_NULL, null=True)
+    cheese = models.ForeignKey(cheese, on_delete=models.SET_NULL, null=True)
+    toppings = models.ManyToManyField(toppings)
